@@ -5,6 +5,7 @@ import com.caresync.service.data.dtos.response.HospitalResponse;
 import com.caresync.service.data.entities.Hospital;
 import com.caresync.service.data.entities.HospitalLocation;
 import com.caresync.service.data.repositories.HospitalRepository;
+import com.caresync.service.data.services.abstractions.HospitalService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +14,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class HospitalServiceImpl {
+public class HospitalServiceImpl implements HospitalService {
 
     private final HospitalRepository hospitalRepository;
 
