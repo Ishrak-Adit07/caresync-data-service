@@ -31,12 +31,10 @@ public class DoctorHospital {
     private Hospital hospital;
 
     @ElementCollection
-    @CollectionTable(name = "doctor_appointments", joinColumns = @JoinColumn(name = "doctor_hospital_id"))
     @Column(name = "appointment_time")
     private List<LocalDateTime> appointmentTimes;
 
     @ElementCollection
-    @CollectionTable(name = "doctor_schedule", joinColumns = @JoinColumn(name = "doctor_hospital_id"))
     @Column(name = "weekly_schedule")
     private List<String> weeklySchedule;
 

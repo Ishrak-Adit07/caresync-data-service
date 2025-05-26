@@ -37,7 +37,6 @@ public class HospitalDepartment {
     private Short beds;
 
     @ElementCollection
-    @CollectionTable(name = "hospital_department_days", joinColumns = @JoinColumn(name = "hospital_department_id"))
     @Column(name = "available_day")
     private List<String> availableDays;
 }

@@ -39,7 +39,6 @@ public class Hospital {
     private HospitalLocation location;
 
     @ElementCollection(targetClass = HOSPITAL_TYPE.class)
-    @CollectionTable(name = "hospital_types", joinColumns = @JoinColumn(name = "hospital_id"))
     @Enumerated(EnumType.STRING)
     @Column(name = "type")
     @NotEmpty(message = "At least one hospital type must be specified")
