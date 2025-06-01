@@ -1,5 +1,6 @@
 package com.caresync.service.data.entities;
 
+import com.caresync.service.data.dtos.data.Location;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -19,8 +20,7 @@ import java.util.List;
 public class Doctor {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
     @NotBlank
     @Size(max = 100)
@@ -32,13 +32,14 @@ public class Doctor {
     private List<String> specialties;
 
     private String phoneNumber;
-
     private String email;
 
-    @OneToOne(mappedBy = "doctor", cascade = CascadeType.ALL, orphanRemoval = true)
-    private DoctorLocation location;
+    private String locationId;
 
     @ManyToOne
     @JoinColumn(name = "department_id")
     private Department department;
+
+    @Transient
+    private Location location; // DTO only
 }

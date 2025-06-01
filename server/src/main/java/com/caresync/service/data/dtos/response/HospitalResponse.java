@@ -7,11 +7,11 @@ import java.util.List;
 
 @Builder
 public record HospitalResponse(
-        Long id,
+        String id,
         String name,
         String phoneNumber,
         String website,
         List<HOSPITAL_TYPE> types,
         Short icus,
-        HospitalLocationResponse location
+        LocationResponse location
 ) {}

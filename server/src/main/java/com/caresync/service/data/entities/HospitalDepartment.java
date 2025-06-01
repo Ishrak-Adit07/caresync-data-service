@@ -17,8 +17,7 @@ import java.util.List;
 public class HospitalDepartment {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
     @ManyToOne
     @JoinColumn(name = "hospital_id")
@@ -40,4 +39,3 @@ public class HospitalDepartment {
     @Column(name = "available_day")
     private List<String> availableDays;
 }
-

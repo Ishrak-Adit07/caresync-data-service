@@ -1,5 +1,6 @@
 package com.caresync.service.data.entities;
 
+import com.caresync.service.data.dtos.data.Location;
 import com.caresync.service.data.enums.HOSPITAL_TYPE;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
@@ -22,36 +23,30 @@ import java.util.List;
 public class Hospital {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
     @NotBlank(message = "Hospital name cannot be blank")
-    @Size(max = 150, message = "Hospital name must be at most 150 characters")
+    @Size(max = 150)
     private String name;
 
-    @Size(max = 20, message = "Phone number must be at most 20 characters")
+    @Size(max = 20)
     private String phoneNumber;
 
-    @Size(max = 255, message = "Website URL must be at most 255 characters")
+    @Size(max = 255)
     private String website;
 
-    @OneToOne(mappedBy = "hospital", cascade = CascadeType.ALL, orphanRemoval = true)
-    private HospitalLocation location;
+    private String locationId;
 
-    @ElementCollection(targetClass = HOSPITAL_TYPE.class)
+    @ElementCollection
     @Enumerated(EnumType.STRING)
+    @CollectionTable(name = "hospital_types", joinColumns = @JoinColumn(name = "hospital_id"))
     @Column(name = "type")
     @NotEmpty(message = "At least one hospital type must be specified")
     private List<HOSPITAL_TYPE> types;
 
-    @Min(value = 0, message = "Number of ICUs cannot be negative")
+    @Min(0)
     private Short icus;
 
-    public Hospital(String name, String phoneNumber, String website, List<HOSPITAL_TYPE> types, Short icus) {
-        this.name = name;
-        this.phoneNumber = phoneNumber;
-        this.website = website;
-        this.types = types;
-        this.icus = icus;
-    }
+    @Transient
+    private Location location;
 }
