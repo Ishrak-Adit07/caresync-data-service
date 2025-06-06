@@ -96,6 +96,37 @@ public class HospitalServiceImpl implements HospitalService {
         hospitalRepository.deleteById(id);
     }
 
+    @Override
+    @Transactional
+    public HospitalResponse updateHospital(HospitalRegistrationRequest hospitalRegistrationRequest) {
+        Hospital existing = hospitalRepository.findById(hospitalRegistrationRequest.id())
+                .orElseThrow(() -> new RuntimeException("Hospital not found with id: " + hospitalRegistrationRequest.id()));
+
+        existing.setName(hospitalRegistrationRequest.name());
+        existing.setPhoneNumber(hospitalRegistrationRequest.phoneNumber());
+        existing.setWebsite(hospitalRegistrationRequest.website());
+        existing.setTypes(hospitalRegistrationRequest.types());
+        existing.setIcus(hospitalRegistrationRequest.icus());
+
+        if (hospitalRegistrationRequest.location() != null) {
+            LocationRequest locationRequest = LocationRequest.builder()
+                    .id(existing.getLocationId()) // existing ID to update
+                    .locationType(hospitalRegistrationRequest.location().getLocationType())
+                    .address(hospitalRegistrationRequest.location().getAddress())
+                    .thana(hospitalRegistrationRequest.location().getThana())
+                    .po(hospitalRegistrationRequest.location().getPo())
+                    .city(hospitalRegistrationRequest.location().getCity())
+                    .postalCode(hospitalRegistrationRequest.location().getPostalCode())
+                    .zoneId(hospitalRegistrationRequest.location().getZoneId())
+                    .build();
+
+            LocationResponse updatedLocation = locationClient.updateLocation(locationRequest);
+            existing.setLocationId(updatedLocation.id());
+        }
+
+        hospitalRepository.save(existing);
+        return mapToResponse(existing, null);
+    }
 
     private HospitalResponse mapToResponse(Hospital hospital, LocationResponse locationResponse) {
         if (locationResponse == null && hospital.getLocationId() != null) {

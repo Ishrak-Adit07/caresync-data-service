@@ -12,6 +12,8 @@ import java.util.List;
 
 public record HospitalRegistrationRequest (
 
+    Long id,
+
     @NotBlank(message = "Hospital name cannot be blank")
     @Size(max = 150)
     String name,

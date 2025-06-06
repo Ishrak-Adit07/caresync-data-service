@@ -11,6 +11,7 @@ public interface HospitalService {
     HospitalResponse getHospitalById(Long id);
     List<HospitalResponse> getHospitalsByZoneId(Long zoneId);
     void deleteHospital(Long id);
+    HospitalResponse updateHospital(HospitalRegistrationRequest hospitalRegistrationRequest);
     HospitalResponse registerHospital(HospitalRegistrationRequest hospitalRegistrationRequest);
 
 }
