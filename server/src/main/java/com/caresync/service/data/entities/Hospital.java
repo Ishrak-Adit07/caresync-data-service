@@ -36,7 +36,7 @@ public class Hospital {
     @Size(max = 255)
     private String website;
 
-    private String locationId;
+    private Long locationId;
 
     @ElementCollection
     @Enumerated(EnumType.STRING)

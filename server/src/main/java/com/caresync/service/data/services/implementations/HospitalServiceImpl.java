@@ -1,6 +1,8 @@
 package com.caresync.service.data.services.implementations;
 
+import com.caresync.service.data.clients.LocationClient;
 import com.caresync.service.data.dtos.response.HospitalResponse;
+import com.caresync.service.data.dtos.response.LocationResponse;
 import com.caresync.service.data.entities.Hospital;
 import com.caresync.service.data.repositories.HospitalRepository;
 import com.caresync.service.data.services.abstractions.HospitalService;
@@ -15,14 +17,19 @@ import java.util.stream.Collectors;
 public class HospitalServiceImpl implements HospitalService {
 
     private final HospitalRepository hospitalRepository;
+    private final LocationClient locationClient;
 
     public List<HospitalResponse> getAllHospitals() {
         return hospitalRepository.findAll().stream()
-                .map(this::mapToResponse)
+                .map(hospital -> mapToResponse(hospital, null))
                 .collect(Collectors.toList());
     }
 
-    private HospitalResponse mapToResponse(Hospital hospital) {
+
+    private HospitalResponse mapToResponse(Hospital hospital, LocationResponse locationResponse) {
+        if (locationResponse == null && hospital.getLocationId() != null) {
+            locationResponse = locationClient.getLocationById(hospital.getLocationId());
+        }
 
         return HospitalResponse.builder()
                 .id(hospital.getId())
@@ -31,7 +38,7 @@ public class HospitalServiceImpl implements HospitalService {
                 .website(hospital.getWebsite())
                 .types(hospital.getTypes())
                 .icus(hospital.getIcus())
-                .locationResponse(null)
+                .locationResponse(locationResponse)
                 .build();
     }
 }

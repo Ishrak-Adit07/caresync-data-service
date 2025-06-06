@@ -35,7 +35,7 @@ public class Doctor {
     private String phoneNumber;
     private String email;
 
-    private String locationId;
+    private Long locationId;
 
     @ManyToOne
     @JoinColumn(name = "department_id")
