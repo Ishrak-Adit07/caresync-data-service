@@ -1,12 +1,13 @@
 package com.caresync.service.data.controllers;
 
+import com.caresync.service.data.dtos.request.HospitalRegistrationRequest;
 import com.caresync.service.data.dtos.response.HospitalResponse;
 import com.caresync.service.data.services.abstractions.HospitalService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,6 +27,12 @@ public class HospitalControllerV1 {
     public ResponseEntity<List<HospitalResponse>> getAllHospitals() {
         List<HospitalResponse> hospitals = hospitalService.getAllHospitals();
         return ResponseEntity.ok(hospitals);
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<HospitalResponse> register(@Valid @RequestBody HospitalRegistrationRequest hospitalRegistrationRequest){
+        HospitalResponse newHospitalResponse = hospitalService.registerHospital(hospitalRegistrationRequest);
+        return ResponseEntity.status(HttpStatus.CREATED).body(newHospitalResponse);
     }
 
 }

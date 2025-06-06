@@ -3,6 +3,7 @@ package com.caresync.service.data.dtos.request;
 import com.caresync.service.data.dtos.data.Location;
 import com.caresync.service.data.enums.HOSPITAL_TYPE;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
@@ -25,6 +26,9 @@ public record HospitalRegistrationRequest (
     List<HOSPITAL_TYPE> types,
 
     @Valid
-    Location location
+    Location location,
+
+    @Min(0)
+    Short icus
 
 ){}
