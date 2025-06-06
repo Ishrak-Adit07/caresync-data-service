@@ -3,13 +3,13 @@
 -- =========================
 
 CREATE TABLE departments (
-                             id BIGINT PRIMARY KEY AUTO_INCREMENT,
+                             id BIGSERIAL PRIMARY KEY,
                              name VARCHAR(100) NOT NULL,
                              description TEXT
 );
 
 CREATE TABLE hospitals (
-                           id BIGINT PRIMARY KEY AUTO_INCREMENT,
+                           id BIGSERIAL PRIMARY KEY,
                            name VARCHAR(150) NOT NULL,
                            phone_number VARCHAR(20),
                            website VARCHAR(255),
@@ -24,7 +24,7 @@ CREATE TABLE hospital_types (
 );
 
 CREATE TABLE doctors (
-                         id BIGINT PRIMARY KEY AUTO_INCREMENT,
+                         id BIGSERIAL PRIMARY KEY,
                          name VARCHAR(100) NOT NULL,
                          phone_number VARCHAR(20),
                          email VARCHAR(100),
@@ -40,7 +40,7 @@ CREATE TABLE doctor_specialties (
 );
 
 CREATE TABLE doctor_hospital (
-                                 id BIGINT PRIMARY KEY AUTO_INCREMENT,
+                                 id BIGSERIAL PRIMARY KEY,
                                  doctor_id BIGINT,
                                  hospital_id BIGINT,
                                  appointment_fee DECIMAL(10, 2),
@@ -61,7 +61,7 @@ CREATE TABLE doctor_hospital_weekly_schedule (
 );
 
 CREATE TABLE hospital_departments (
-                                      id BIGINT PRIMARY KEY AUTO_INCREMENT,
+                                      id BIGSERIAL PRIMARY KEY,
                                       hospital_id BIGINT,
                                       department_id BIGINT,
                                       head_doctor_id BIGINT,
