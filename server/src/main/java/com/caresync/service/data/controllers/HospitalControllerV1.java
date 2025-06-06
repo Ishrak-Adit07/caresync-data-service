@@ -19,7 +19,7 @@ public class HospitalControllerV1 {
 
     @GetMapping("/test")
     public ResponseEntity<String> test() {
-        return ResponseEntity.ok("Hospital service test successful");
+        return ResponseEntity.ok("Hospital service running successfully");
     }
 
     @GetMapping("/all")
