@@ -1,6 +1,7 @@
 package com.caresync.service.data.controllers;
 
 import com.caresync.service.data.dtos.request.HospitalRegistrationRequest;
+import com.caresync.service.data.dtos.request.HospitalUpdateRequest;
 import com.caresync.service.data.dtos.response.HospitalResponse;
 import com.caresync.service.data.services.abstractions.HospitalService;
 import jakarta.validation.Valid;
@@ -44,6 +45,13 @@ public class HospitalControllerV1 {
     public ResponseEntity<HospitalResponse> register(@Valid @RequestBody HospitalRegistrationRequest hospitalRegistrationRequest){
         HospitalResponse newHospitalResponse = hospitalService.registerHospital(hospitalRegistrationRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(newHospitalResponse);
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<HospitalResponse> updateHospital(
+            @Valid @RequestBody HospitalUpdateRequest updateRequest) {
+        HospitalResponse updated = hospitalService.updateHospital(updateRequest);
+        return ResponseEntity.ok(updated);
     }
 
     @DeleteMapping("/{id}")
