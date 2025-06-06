@@ -1,8 +1,7 @@
 package com.caresync.service.data.dtos.data;
 
-
 import com.caresync.service.data.enums.LOCATION_TYPE;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @Data
@@ -11,19 +10,21 @@ import lombok.*;
 @Builder
 public class Location {
 
-    private String id;
+    private Long id;
 
+    @NotNull(message = "Location type cannot be blank")
     private LOCATION_TYPE locationType;
 
     private String address;
     private String thana;
     private String po;
 
-    @NotBlank(message = "City cannot be blank")
+    @NotNull(message = "City cannot be blank")
     private String city;
 
-    @NotBlank(message = "Postal code cannot be blank")
-    private String postalCode;
+    @NotNull(message = "Postal code cannot be blank")
+    private Long postalCode;
 
-    private String zoneId;
+    @NotNull(message = "Zone ID cannot be blank")
+    private Long zoneId;
 }
