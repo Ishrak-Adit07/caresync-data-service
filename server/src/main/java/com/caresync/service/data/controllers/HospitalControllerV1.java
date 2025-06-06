@@ -50,8 +50,8 @@ public class HospitalControllerV1 {
     @PutMapping("/update")
     public ResponseEntity<HospitalResponse> updateHospital(
             @Valid @RequestBody HospitalUpdateRequest updateRequest) {
-        HospitalResponse updated = hospitalService.updateHospital(updateRequest);
-        return ResponseEntity.ok(updated);
+        HospitalResponse updateHospitalResponse = hospitalService.updateHospital(updateRequest);
+        return ResponseEntity.ok(updateHospitalResponse);
     }
 
     @DeleteMapping("/{id}")
