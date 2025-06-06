@@ -8,6 +8,7 @@ import com.caresync.service.data.dtos.request.LocationRequest;
 import com.caresync.service.data.dtos.response.HospitalResponse;
 import com.caresync.service.data.dtos.response.LocationResponse;
 import com.caresync.service.data.entities.Hospital;
+import com.caresync.service.data.enums.HOSPITAL_TYPE;
 import com.caresync.service.data.repositories.HospitalRepository;
 import com.caresync.service.data.services.abstractions.HospitalService;
 import jakarta.transaction.Transactional;
@@ -38,6 +39,22 @@ public class HospitalServiceImpl implements HospitalService {
                 .orElseThrow(() -> new RuntimeException("Hospital not found with id: " + id));
 
         return mapToResponse(hospital, null);
+    }
+
+    @Override
+    public List<HospitalResponse> getHospitalsByType(HOSPITAL_TYPE type) {
+        return hospitalRepository.findByType(type).stream()
+                .map(hospital -> mapToResponse(hospital, null))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<HospitalResponse> getHospitalsByZoneId(Long zoneId) {
+        return hospitalRepository.findAll().stream()
+                .map(hospital -> mapToResponse(hospital, null))
+                .filter(response -> response.locationResponse() != null &&
+                        zoneId.equals(response.locationResponse().zoneId()))
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -78,15 +95,6 @@ public class HospitalServiceImpl implements HospitalService {
         } catch (DataIntegrityViolationException e) {
             throw new DataIntegrityViolationException("Failed to register hospital: " + e.getMessage());
         }
-    }
-
-    @Override
-    public List<HospitalResponse> getHospitalsByZoneId(Long zoneId) {
-        return hospitalRepository.findAll().stream()
-                .map(hospital -> mapToResponse(hospital, null))
-                .filter(response -> response.locationResponse() != null &&
-                        zoneId.equals(response.locationResponse().zoneId()))
-                .collect(Collectors.toList());
     }
 
     @Override

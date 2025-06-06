@@ -3,6 +3,7 @@ package com.caresync.service.data.controllers;
 import com.caresync.service.data.dtos.request.HospitalRegistrationRequest;
 import com.caresync.service.data.dtos.request.HospitalUpdateRequest;
 import com.caresync.service.data.dtos.response.HospitalResponse;
+import com.caresync.service.data.enums.HOSPITAL_TYPE;
 import com.caresync.service.data.services.abstractions.HospitalService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -41,6 +42,13 @@ public class HospitalControllerV1 {
         return ResponseEntity.ok(hospitals);
     }
 
+    @GetMapping("/type/{type}")
+    public ResponseEntity<List<HospitalResponse>> getHospitalsByType(@PathVariable HOSPITAL_TYPE type) {
+        List<HospitalResponse> hospitals = hospitalService.getHospitalsByType(type);
+        return ResponseEntity.ok(hospitals);
+    }
+
+
     @PostMapping("/register")
     public ResponseEntity<HospitalResponse> register(@Valid @RequestBody HospitalRegistrationRequest hospitalRegistrationRequest){
         HospitalResponse newHospitalResponse = hospitalService.registerHospital(hospitalRegistrationRequest);
@@ -59,6 +67,5 @@ public class HospitalControllerV1 {
         hospitalService.deleteHospital(id);
         return ResponseEntity.noContent().build();
     }
-
 
 }
