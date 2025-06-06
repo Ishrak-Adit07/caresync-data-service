@@ -88,6 +88,15 @@ public class HospitalServiceImpl implements HospitalService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public void deleteHospital(Long id) {
+        if (!hospitalRepository.existsById(id)) {
+            throw new RuntimeException("Hospital not found with id: " + id);
+        }
+        hospitalRepository.deleteById(id);
+    }
+
+
     private HospitalResponse mapToResponse(Hospital hospital, LocationResponse locationResponse) {
         if (locationResponse == null && hospital.getLocationId() != null) {
             locationResponse = locationClient.getLocationById(hospital.getLocationId());

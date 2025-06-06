@@ -46,4 +46,11 @@ public class HospitalControllerV1 {
         return ResponseEntity.status(HttpStatus.CREATED).body(newHospitalResponse);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteHospital(@PathVariable Long id) {
+        hospitalService.deleteHospital(id);
+        return ResponseEntity.noContent().build();
+    }
+
+
 }

@@ -10,6 +10,7 @@ public interface HospitalService {
     List<HospitalResponse> getAllHospitals();
     HospitalResponse getHospitalById(Long id);
     List<HospitalResponse> getHospitalsByZoneId(Long zoneId);
+    void deleteHospital(Long id);
     HospitalResponse registerHospital(HospitalRegistrationRequest hospitalRegistrationRequest);
 
 }
