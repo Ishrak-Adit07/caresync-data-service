@@ -3,6 +3,7 @@ package com.caresync.service.data.services.implementations;
 import com.caresync.service.data.clients.LocationClient;
 import com.caresync.service.data.dtos.data.Location;
 import com.caresync.service.data.dtos.request.HospitalRegistrationRequest;
+import com.caresync.service.data.dtos.request.HospitalUpdateRequest;
 import com.caresync.service.data.dtos.request.LocationRequest;
 import com.caresync.service.data.dtos.response.HospitalResponse;
 import com.caresync.service.data.dtos.response.LocationResponse;
@@ -98,26 +99,40 @@ public class HospitalServiceImpl implements HospitalService {
 
     @Override
     @Transactional
-    public HospitalResponse updateHospital(HospitalRegistrationRequest hospitalRegistrationRequest) {
-        Hospital existing = hospitalRepository.findById(hospitalRegistrationRequest.id())
-                .orElseThrow(() -> new RuntimeException("Hospital not found with id: " + hospitalRegistrationRequest.id()));
+    public HospitalResponse updateHospital(HospitalUpdateRequest hospitalUpdateRequest) {
+        Hospital existing = hospitalRepository.findById(hospitalUpdateRequest.id())
+                .orElseThrow(() -> new RuntimeException("Hospital not found with id: " + hospitalUpdateRequest.id()));
 
-        existing.setName(hospitalRegistrationRequest.name());
-        existing.setPhoneNumber(hospitalRegistrationRequest.phoneNumber());
-        existing.setWebsite(hospitalRegistrationRequest.website());
-        existing.setTypes(hospitalRegistrationRequest.types());
-        existing.setIcus(hospitalRegistrationRequest.icus());
+        if (hospitalUpdateRequest.name() != null) {
+            existing.setName(hospitalUpdateRequest.name());
+        }
 
-        if (hospitalRegistrationRequest.location() != null) {
+        if (hospitalUpdateRequest.phoneNumber() != null) {
+            existing.setPhoneNumber(hospitalUpdateRequest.phoneNumber());
+        }
+
+        if (hospitalUpdateRequest.website() != null) {
+            existing.setWebsite(hospitalUpdateRequest.website());
+        }
+
+        if (hospitalUpdateRequest.types() != null) {
+            existing.setTypes(hospitalUpdateRequest.types());
+        }
+
+        if (hospitalUpdateRequest.icus() != null) {
+            existing.setIcus(hospitalUpdateRequest.icus());
+        }
+
+        if (hospitalUpdateRequest.location() != null) {
             LocationRequest locationRequest = LocationRequest.builder()
                     .id(existing.getLocationId()) // existing ID to update
-                    .locationType(hospitalRegistrationRequest.location().getLocationType())
-                    .address(hospitalRegistrationRequest.location().getAddress())
-                    .thana(hospitalRegistrationRequest.location().getThana())
-                    .po(hospitalRegistrationRequest.location().getPo())
-                    .city(hospitalRegistrationRequest.location().getCity())
-                    .postalCode(hospitalRegistrationRequest.location().getPostalCode())
-                    .zoneId(hospitalRegistrationRequest.location().getZoneId())
+                    .locationType(hospitalUpdateRequest.location().getLocationType())
+                    .address(hospitalUpdateRequest.location().getAddress())
+                    .thana(hospitalUpdateRequest.location().getThana())
+                    .po(hospitalUpdateRequest.location().getPo())
+                    .city(hospitalUpdateRequest.location().getCity())
+                    .postalCode(hospitalUpdateRequest.location().getPostalCode())
+                    .zoneId(hospitalUpdateRequest.location().getZoneId())
                     .build();
 
             LocationResponse updatedLocation = locationClient.updateLocation(locationRequest);
