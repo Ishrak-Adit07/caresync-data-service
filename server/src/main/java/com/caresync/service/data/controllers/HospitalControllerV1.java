@@ -22,7 +22,7 @@ public class HospitalControllerV1 {
 
     @GetMapping("/test")
     public ResponseEntity<String> test() {
-        return ResponseEntity.ok("Hospital service running successfully");
+        return ResponseEntity.ok("Hospital service is running successfully");
     }
 
     @GetMapping("/all")
