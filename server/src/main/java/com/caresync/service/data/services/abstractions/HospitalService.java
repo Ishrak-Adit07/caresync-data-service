@@ -8,6 +8,7 @@ import java.util.List;
 public interface HospitalService {
 
     List<HospitalResponse> getAllHospitals();
+    HospitalResponse getHospitalById(Long id);
     HospitalResponse registerHospital(HospitalRegistrationRequest hospitalRegistrationRequest);
 
 }

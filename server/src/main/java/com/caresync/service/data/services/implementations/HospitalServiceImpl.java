@@ -24,10 +24,19 @@ public class HospitalServiceImpl implements HospitalService {
     private final HospitalRepository hospitalRepository;
     private final LocationClient locationClient;
 
+    @Override
     public List<HospitalResponse> getAllHospitals() {
         return hospitalRepository.findAll().stream()
                 .map(hospital -> mapToResponse(hospital, null))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public HospitalResponse getHospitalById(Long id) {
+        Hospital hospital = hospitalRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Hospital not found with id: " + id));
+
+        return mapToResponse(hospital, null);
     }
 
     @Override
