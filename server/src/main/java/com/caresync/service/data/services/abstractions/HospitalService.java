@@ -9,6 +9,7 @@ public interface HospitalService {
 
     List<HospitalResponse> getAllHospitals();
     HospitalResponse getHospitalById(Long id);
+    List<HospitalResponse> getHospitalsByZoneId(Long zoneId);
     HospitalResponse registerHospital(HospitalRegistrationRequest hospitalRegistrationRequest);
 
 }

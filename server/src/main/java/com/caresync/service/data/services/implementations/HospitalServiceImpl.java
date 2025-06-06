@@ -79,6 +79,15 @@ public class HospitalServiceImpl implements HospitalService {
         }
     }
 
+    @Override
+    public List<HospitalResponse> getHospitalsByZoneId(Long zoneId) {
+        return hospitalRepository.findAll().stream()
+                .map(hospital -> mapToResponse(hospital, null))
+                .filter(response -> response.locationResponse() != null &&
+                        zoneId.equals(response.locationResponse().zoneId()))
+                .collect(Collectors.toList());
+    }
+
     private HospitalResponse mapToResponse(Hospital hospital, LocationResponse locationResponse) {
         if (locationResponse == null && hospital.getLocationId() != null) {
             locationResponse = locationClient.getLocationById(hospital.getLocationId());

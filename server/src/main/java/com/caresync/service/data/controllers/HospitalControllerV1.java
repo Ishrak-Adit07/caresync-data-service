@@ -34,6 +34,12 @@ public class HospitalControllerV1 {
         return ResponseEntity.ok(hospitalService.getHospitalById(id));
     }
 
+    @GetMapping("/zone/{zoneId}")
+    public ResponseEntity<List<HospitalResponse>> getHospitalsByZone(@PathVariable Long zoneId) {
+        List<HospitalResponse> hospitals = hospitalService.getHospitalsByZoneId(zoneId);
+        return ResponseEntity.ok(hospitals);
+    }
+
     @PostMapping("/register")
     public ResponseEntity<HospitalResponse> register(@Valid @RequestBody HospitalRegistrationRequest hospitalRegistrationRequest){
         HospitalResponse newHospitalResponse = hospitalService.registerHospital(hospitalRegistrationRequest);
