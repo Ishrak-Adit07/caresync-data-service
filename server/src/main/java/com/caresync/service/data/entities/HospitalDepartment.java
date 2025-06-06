@@ -17,7 +17,8 @@ import java.util.List;
 public class HospitalDepartment {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "hospital_id")

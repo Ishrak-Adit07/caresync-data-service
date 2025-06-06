@@ -31,7 +31,7 @@ public class HospitalServiceImpl implements HospitalService {
                 .website(hospital.getWebsite())
                 .types(hospital.getTypes())
                 .icus(hospital.getIcus())
-                .location(null)
+                .locationResponse(null)
                 .build();
     }
 }

@@ -23,7 +23,8 @@ import java.util.List;
 public class Hospital {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @NotBlank(message = "Hospital name cannot be blank")
     @Size(max = 150)

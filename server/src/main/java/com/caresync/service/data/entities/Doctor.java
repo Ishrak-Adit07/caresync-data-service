@@ -20,7 +20,8 @@ import java.util.List;
 public class Doctor {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @NotBlank
     @Size(max = 100)
